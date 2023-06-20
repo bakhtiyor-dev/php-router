@@ -1,0 +1,15 @@
+{
+  "name": "user/php-router",
+  "autoload": {
+    "psr-4": {
+      "Core\\": "core/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Bakhtiyor",
+      "email": "alijanovbakhtiyor@gmail.com"
+    }
+  ],
+  "require": {}
+}
