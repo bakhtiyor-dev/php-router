@@ -11,5 +11,7 @@
       "email": "alijanovbakhtiyor@gmail.com"
     }
   ],
-  "require": {}
+  "require": {
+    "symfony/http-foundation": "^6.3"
+  }
 }

@@ -5,13 +5,14 @@ declare(strict_types=1);
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Core\Router;
+use Symfony\Component\HttpFoundation\Request;
 
-$router = new Router();
+$registerRoutes = require_once __DIR__ . '/../routes/api.php';
 
-$router->get('/', function () {
-    return json_encode(['type' => 'asdsa']);
-});
+$router = new Router(
+    Request::createFromGlobals()
+);
 
-$router->addNotFoundHandler(fn() => 'Not Found!');
+$registerRoutes($router);
 
 echo $router->run();

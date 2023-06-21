@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Core;
 
 use Closure;
+use Symfony\Component\HttpFoundation\Request;
 
 class Router
 {
@@ -12,9 +13,16 @@ class Router
 
     private Closure $notFoundHandler;
 
+    private Request $request;
+
     private const METHOD_GET = 'GET';
 
     private const METHOD_POST = 'POST';
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
 
     public function get(string $path, callable $handler)
     {
@@ -44,7 +52,7 @@ class Router
 
         foreach ($this->handlers as $handler) {
             if ($handler['path'] === $requestPath && $method === $handler['method']) {
-                return call_user_func($handler['handler']);
+                return call_user_func($handler['handler'], $this->request);
             }
         }
 
