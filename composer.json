@@ -2,7 +2,8 @@
   "name": "user/php-router",
   "autoload": {
     "psr-4": {
-      "Core\\": "core/"
+      "Core\\": "core/",
+      "App\\": "app/"
     }
   },
   "authors": [
@@ -12,6 +13,12 @@
     }
   ],
   "require": {
-    "symfony/http-foundation": "^6.3"
+    "php" : ">=7.4",
+    "symfony/http-foundation": "*",
+    "symfony/dotenv": "*",
+    "ext-pdo": "*",
+    "opis/orm": "^1.0",
+    "ext-json": "*",
+    "respect/validation": "^2.2"
   }
 }

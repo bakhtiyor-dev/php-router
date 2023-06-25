@@ -24,12 +24,12 @@ class Router
         $this->request = $request;
     }
 
-    public function get(string $path, callable $handler)
+    public function get(string $path, $handler)
     {
         $this->addHandler(self::METHOD_GET, $path, $handler);
     }
 
-    public function post(string $path, callable $handler)
+    public function post(string $path, $handler)
     {
         $this->addHandler(self::METHOD_POST, $path, $handler);
     }
@@ -39,7 +39,7 @@ class Router
         $this->notFoundHandler = $handler;
     }
 
-    private function addHandler(string $method, string $path, callable $handler)
+    private function addHandler(string $method, string $path, $handler)
     {
         $this->handlers["{$method}{$path}"] = compact('method', 'path', 'handler');
     }
@@ -52,7 +52,11 @@ class Router
 
         foreach ($this->handlers as $handler) {
             if ($handler['path'] === $requestPath && $method === $handler['method']) {
-                return call_user_func($handler['handler'], $this->request);
+                if (is_array($handler['handler'])) {
+                    $controller = new $handler['handler'][0];
+                    $method = $handler['handler'][1];
+                    return call_user_func_array([$controller, $method], [$this->request]);
+                }
             }
         }
 
